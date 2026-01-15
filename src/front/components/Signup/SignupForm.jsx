@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +14,7 @@ const SignupForm = () => {
     setLoading(true);
 
     try {
-      const resp = await fetch("/api/signup", {
+      const resp = await fetch(`${backendUrl}/api/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
