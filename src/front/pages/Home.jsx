@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/home.css";
 
+import SettingsDropdown from "../components/Profile/SettingsDropdown";
 import WeeklyKms from "../components/Home/WeeklyKms";
 import StartRouteButton from "../components/Home/StartRouteButton";
 import FeaturedRoutes from "../components/Home/FeaturedRoutes";
@@ -44,9 +45,9 @@ const Home = () => {
     <div className="home">
       <header className="home-header">
         <h1>Inicio</h1>
-        <button onClick={handleLogout} className="logout-btn">
-          Cerrar sesión
-        </button>
+        <div className="settings-wrapper">
+          <SettingsDropdown onLogout={handleLogout} />
+        </div>
       </header>
 
       <main className="home-content">

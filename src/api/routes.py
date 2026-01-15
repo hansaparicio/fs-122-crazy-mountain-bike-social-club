@@ -103,9 +103,9 @@ def home():
     }
     return jsonify(home_data), 200
 
-@api.route("/private", methods=["GET"])
+@api.route("/profile", methods=["GET"])
 @jwt_required()
-def private():
+def profile():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
     if not user:
