@@ -9,6 +9,8 @@ import FeaturedRoutes from "../components/Home/FeaturedRoutes";
 import FriendsActivity from "../components/Home/FriendsActivity";
 import MaintenanceCard from "../components/Maintenance/MaintenanceCard";
 
+
+
 const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -53,6 +55,7 @@ const Home = () => {
         <FeaturedRoutes />
         <FriendsActivity />
         <MaintenanceCard title="Mantenimiento" showTitle={true} showActionButton={false} />
+        <StartRouteButton />
       </main>
     </div>
   );

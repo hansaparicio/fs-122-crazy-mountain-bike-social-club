@@ -8,6 +8,8 @@ import { Signup } from "./pages/Signup";
 import { About } from "./pages/About";
 import Profile from "./pages/Profile";
 import RouteDetail from "./pages/RouteDetail";
+import RouteRegistration from "./pages/RouteRegistration.jsx";
+
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +30,7 @@ export const router = createBrowserRouter(
       <Route path="/home" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/route/:routeId" element={<RouteDetail />} />
+      <Route path="/route-registration" element={<RouteRegistration />} />
     </Route>
   )
 );
