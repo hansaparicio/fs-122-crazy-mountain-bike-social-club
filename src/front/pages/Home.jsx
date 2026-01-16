@@ -42,21 +42,49 @@ const Home = () => {
 
   return (
     <div className="home">
-      <header className="home-header">
-        <h1>Inicio</h1>
-        <button onClick={handleLogout} className="logout-btn">
-          Cerrar sesión
-        </button>
-      </header>
+      <div className="home-content">
 
-      <main className="home-content">
-        <WeeklyKms />
-        <StartRouteButton />
-        <FeaturedRoutes />
-        <FriendsActivity />
-        <MaintenanceCard title="Mantenimiento" showTitle={true} showActionButton={false} />
-        <StartRouteButton />
-      </main>
+        <header className="home-header">
+          <div
+            className="home-left clickable"
+            onClick={() => navigate("/home")}
+          >
+            <span className="home-icon">🏠</span>
+            <span className="home-title">Inicio</span>
+          </div>
+
+          <div className="home-actions">
+            <div
+              className="user-avatar clickable"
+              onClick={() => navigate("/profile")}
+              role="button"
+              tabIndex={0}
+            >
+              <img
+                src="https://i.pravatar.cc/40"
+                alt="Perfil de usuario"
+              />
+            </div>
+
+            <button
+              className="logout-btn"
+              onClick={handleLogout}
+              aria-label="Cerrar sesión"
+            >
+              ⏻
+            </button>
+          </div>
+        </header>
+
+        <main className="home-content">
+          <WeeklyKms />
+          <StartRouteButton />
+          <FeaturedRoutes />
+          <FriendsActivity />
+          <MaintenanceCard title="Mantenimiento" showTitle={true} showActionButton={false} />
+          <StartRouteButton />
+        </main>
+      </div>
     </div>
   );
 };
