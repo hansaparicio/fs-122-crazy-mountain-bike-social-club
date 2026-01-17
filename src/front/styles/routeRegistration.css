@@ -20,7 +20,7 @@
   right: 0;
   display: flex;
   justify-content: center;
-  pointer-events: none; /* permite interactuar el mapa salvo en hijos */
+  pointer-events: none;
   z-index: 10;
 }
 
@@ -33,10 +33,10 @@
   display: grid;
   grid-template-columns: 40px 1fr 44px;
   align-items: center;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 18px;
   padding: 10px 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .rr-search input {
@@ -73,18 +73,17 @@
   cursor: pointer;
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.92);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   font-weight: 700;
   letter-spacing: 0.3px;
   font-size: 12px;
 }
 
 .rr-chip.active {
-  background: #f3c247; /* tono similar al amarillo del mock */
+  background: #f3c247;
 }
 
-/* Cards */
 .rr-overlay-cards {
   position: absolute;
   left: 0;
@@ -99,10 +98,10 @@
 .rr-card {
   pointer-events: auto;
   width: min(520px, calc(100% - 24px));
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 18px;
   padding: 14px 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
 .rr-card-title {
@@ -139,7 +138,7 @@
   opacity: 0.9;
 }
 
-/* Bottom nav */
+/* nave */
 .rr-bottom {
   position: absolute;
   left: 0;
@@ -152,13 +151,13 @@
 .rr-bottom-nav {
   margin: 0 auto;
   width: min(620px, calc(100% - 24px));
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 22px;
   display: grid;
   grid-template-columns: 1fr 1fr 80px 1fr 1fr;
   align-items: center;
   padding: 10px 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
 .rr-nav-item {
@@ -178,7 +177,25 @@
   margin: 0 auto;
   border-radius: 999px;
   background: #f3c247;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
   font-size: 22px;
   font-weight: 900;
+}
+
+.rr-coords {
+  position: absolute;
+  top: 90px;
+  left: 14px;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.rr-error {
+  color: #b00020;
+  font-weight: 700;
 }
