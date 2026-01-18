@@ -1,92 +1,69 @@
+/* ===============================
+   GARAGE
+================================ */
+
 .garage {
-    margin-top: 32px;
+  margin-top: var(--space-lg);
 }
 
 .garage-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-}
-
-.garage-header h2 {
-     color: var(--beige);
-}
-
-.add-bike {
-    background: none;
-    border: none;
-    color: var(--yellow-1);
-    font-weight: bold;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
 }
 
 .garage-list {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 10px;
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
 }
+
+/* === Bike card specifics === */
 
 .bike-card {
-    min-width: 280px;
-    background: linear-gradient(180deg, #14283a, #0f1f2e);
-    border-radius: 28px;
-    padding: 20px;
-    position: relative;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-}
-
-.bike-card.active {
-    box-shadow: none;
+  min-width: 280px;
+  position: relative;
 }
 
 .bike-card img {
-    width: 100%;
-    height: 140px;
-    object-fit: contain;
-    margin-bottom: 12px;
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: var(--space-sm);
 }
 
 .bike-card h3 {
-    color: var(--beige);
-    font-size: 16px;
+  font-size: 1rem;
+  color: var(--text-primary);
 }
 
 .specs {
-    font-size: 12px;
-    color: var(--yellow-2);
-    margin-bottom: 12px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
 }
 
 .bike-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .bike-footer span {
-    font-size: 12px;
-    color: var(--beige);
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
-.bike-footer button {
-    background: var(--orange);
-    border: none;
-    padding: 6px 14px;
-    border-radius: 14px;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-}
+/* === Badge === */
 
 .badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: var(--orange);
-    color: #000;
-    font-size: 10px;
-    padding: 4px 10px;
-    border-radius: 999px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 0.65rem;
+  padding: 4px 10px;
+  background: var(--accent-warning);
+  color: var(--bg-main);
 }

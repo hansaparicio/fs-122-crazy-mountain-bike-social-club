@@ -40,20 +40,19 @@ const FriendsActivity = () => {
     ];
 
     return (
-    <section className="friends-activity home-section">
-      <h2 className="friends-title">Actividad de amigos</h2>
+      <section className="friends-activity home-section ui-panel">
+        <h2 className="friends-title ui-subtitle">Actividad de amigos</h2>
 
-     
-      <div className="friends-list">
-        {activities.map(activity => (
-          <FriendsActivityCard
-            key={activity.id}
-            {...activity}
-          />
-        ))}
-      </div>
-    </section>
-  );
+        <div className="friends-list">
+          {activities.map(activity => (
+            <FriendsActivityCard
+              key={activity.id}
+              {...activity}
+            />
+          ))}
+        </div>
+      </section>
+    );
 };
 
 export default FriendsActivity;

@@ -11,8 +11,8 @@ const MaintenanceCard = ({
     }
 }) => {
     return (
-        <section className="maintenance">
-            {showTitle && <h2>{title}</h2>}
+        <section className="maintenance ui-panel">
+            {showTitle && <h2 className="ui-subtitle">{title}</h2>}
 
             <div className="bar">
                 <span>Llantas</span>
@@ -36,7 +36,7 @@ const MaintenanceCard = ({
             </div>
 
             {showActionButton && (
-                <button className="maintenance-btn">
+                <button className="ui-btn ui-btn--secondary">
                     Actualizar
                 </button>
             )}

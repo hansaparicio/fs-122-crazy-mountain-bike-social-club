@@ -1,14 +1,14 @@
 import "../../styles/weeklyKms.css";
 
 const WeeklyKms = () => {
- return (
-    <section className="weekly-kms">
-      
+  return (
+    <section className="weekly-kms ui-panel">
+
       {/* FILA SUPERIOR */}
       <div className="weekly-top">
         <div className="weekly-left">
-          <span className="weekly-label">KMS SEMANALES</span>
-          <h2 className="weekly-value">
+          <span className="weekly-label ui-text">KMS SEMANALES</span>
+          <h2 className="weekly-value ui-title">
             128.4 <span>km</span>
           </h2>
         </div>
@@ -31,7 +31,7 @@ const WeeklyKms = () => {
       </div>
 
       {/* DIVISOR */}
-      <div className="weekly-divider" />
+      <div className="ui-divider" />
 
       {/* FILA INFERIOR */}
       <div className="weekly-bottom">

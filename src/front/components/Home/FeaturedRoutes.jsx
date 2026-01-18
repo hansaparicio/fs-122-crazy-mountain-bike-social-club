@@ -2,14 +2,14 @@ import "../../styles/featuredRoutes.css";
 
 const FeaturedRoutes = () => {
   return (
-    <section className="featured-routes home-section">
+    <section className="featured-routes home-section ui-panel">
       <div className="featured-header">
-        <h2>Rutas destacadas</h2>
-        <button className="link-btn">Ver todas</button>
+        <h2 className="ui-subtitle">Rutas destacadas</h2>
+        <button className="ui-btn ui-btn--secondary">Ver todas</button>
       </div>
 
       <div className="featured-list">
-        
+
         {/* CARD 1 */}
         <article className="route-card">
           <img
@@ -61,3 +61,4 @@ const FeaturedRoutes = () => {
 };
 
 export default FeaturedRoutes;
+
