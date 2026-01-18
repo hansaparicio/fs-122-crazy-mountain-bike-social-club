@@ -8,9 +8,6 @@
 
 .friends-title {
     margin-bottom: 16px;
-    color: var(--beige);
-    font-size: 1.1rem;
-    font-weight: 600;
 }
 
 /*     LISTA ACTIVIDAD           */
@@ -40,10 +37,6 @@
     flex-direction: column;
     gap: 12px;
 
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-soft);
-    border-radius: 20px;
-    padding: 16px;
     overflow: hidden;
 
     scroll-snap-align: start;
@@ -58,7 +51,6 @@
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--yellow-2);
     flex-shrink: 0;
 }
 
@@ -71,8 +63,6 @@
 }
 
 .friends-info strong {
-    color: var(--beige);
-    font-size: 0.95rem;
     font-weight: 600;
 }
 
@@ -103,7 +93,6 @@
     height: 120px;
     object-fit: cover;
 
-    border-radius: var(--radius-md);
     display: block;
 }
 
@@ -123,7 +112,6 @@
 
 .clickable:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .clickable:active {

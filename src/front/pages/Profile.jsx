@@ -6,17 +6,27 @@ import Garage from "../components/Profile/Garage";
 
 const Profile = () => {
     return (
-        <main className="profile-page">
-            <div className="profile-wrapper">
+        <div className="profile-wrapper">
+            <div className="ui-panel">
                 <ProfileHeader />
+            </div>
+
+            <div className="ui-panel">
                 <Stats />
+            </div>
+
+            <div className="ui-panel">
                 <Garage />
+            </div>
+
+            <div className="ui-panel">
                 <Maintenance
                     showTitle={true}
                     showActionButton={true}
                 />
             </div>
-        </main>
+        </div>
+
     );
 };
 

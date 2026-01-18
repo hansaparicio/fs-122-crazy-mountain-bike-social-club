@@ -1,38 +1,34 @@
+/* ===============================
+   MAINTENANCE
+================================ */
+
 .maintenance {
-  background: linear-gradient(
-    180deg,
-    #14283a,
-    #0f1f2e
-  );
-  border-radius: 28px;
-  padding: 28px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  /* El panel visual viene de .ui-panel */
 }
 
 .bar {
-  margin-bottom: 16px;
+  margin-bottom: var(--space-md);
 }
 
 .progress {
   height: 6px;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
 }
 
-.bar {
-  margin-bottom: 22px;
-}
+/* === States === */
 
 .ok {
-  background: var(--yellow-1);
+  background: var(--accent-primary);
   height: 100%;
 }
 
 .warn {
-  background: var(--orange);
+  background: var(--accent-warning);
   height: 100%;
 }
 
 .bad {
-  background: var(--brown);
+  background: var(--accent-dark);
   height: 100%;
 }
