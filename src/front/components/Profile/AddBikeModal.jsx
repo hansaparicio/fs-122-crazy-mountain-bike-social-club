@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import CloudinaryUploadWidget from "../CloudinaryUploadWidget";
-import "../../styles/Profile/AddBikeModal.css";
+import "../../styles/Profile/addBikeModal.css";
 
 const DEFAULT_PART = {
     id: 1,
@@ -11,6 +11,7 @@ const DEFAULT_PART = {
 };
 
 const AddBikeModal = ({ open, onClose, onBikeCreated }) => {
+    
     const [name, setName] = useState("");
     const [model, setModel] = useState("");
     const [specs, setSpecs] = useState("");

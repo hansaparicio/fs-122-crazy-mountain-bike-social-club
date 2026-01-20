@@ -8,9 +8,6 @@
 
 .friends-title {
     margin-bottom: 16px;
-    color: var(--beige);
-    font-size: 1.1rem;
-    font-weight: 600;
 }
 
 /*     LISTA ACTIVIDAD           */
@@ -21,7 +18,6 @@
     display: flex;
     gap: 16px;
     overflow-x: auto;
-    overflow-y: hidden;
     padding-bottom: 12px;
     scroll-snap-type: x mandatory;
 }
@@ -36,15 +32,17 @@
 }
 
 .friends-card {
+    min-width: 300px;
+    max-width: 300px;
+    flex-shrink: 0;
+
+    background: var(--panel-bg);
+    border-radius: 18px;
+    padding: 16px;
+
     display: flex;
     flex-direction: column;
-    gap: 12px;
-
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-soft);
-    border-radius: 20px;
-    padding: 16px;
-    overflow: hidden;
+    gap: 16px;
 
     scroll-snap-align: start;
 }
@@ -58,7 +56,6 @@
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--yellow-2);
     flex-shrink: 0;
 }
 
@@ -71,8 +68,6 @@
 }
 
 .friends-info strong {
-    color: var(--beige);
-    font-size: 0.95rem;
     font-weight: 600;
 }
 
@@ -94,17 +89,21 @@
 
 .friends-route {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 12px;
 }
 
 .route-preview {
-    width: 100%;
-    height: 120px;
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
     object-fit: cover;
-
-    border-radius: var(--radius-md);
-    display: block;
+    flex-shrink: 0;
 }
 
 .route-meta {
@@ -123,7 +122,6 @@
 
 .clickable:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .clickable:active {
