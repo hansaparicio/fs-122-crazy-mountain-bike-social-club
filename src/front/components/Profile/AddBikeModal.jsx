@@ -20,8 +20,8 @@ const AddBikeModal = ({ open, onClose, onBikeCreated }) => {
 
     const imageWidgetConfig = {
         cloudName: "ddx9lg1wd",
-        uploadPreset: "upload_preset", // cambia por el tuyo real
-        sources: ["local", "camera", "url", "image_search", "google_drive", "dropbox"],
+        uploadPreset: "upload_preset",
+        sources: ["local", "camera", "url", "image_search", "google_drive", "dropbox", "shutterstock", "istock", "unsplash"],
         multiple: false,
         maxFiles: 1,
         folder: "bikes/images",
