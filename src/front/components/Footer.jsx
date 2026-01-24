@@ -5,7 +5,7 @@ export default function Footer() {
            {/* Divider */}
       <div className="footer-divider" />
 
-      {/* Social icons */}
+      {/* Social */}
       <div className="footer-social">
         <i className="fa-solid fa-globe"></i>
         <i className="fa-regular fa-at"></i>
