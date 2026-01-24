@@ -5,7 +5,7 @@ import { Layout } from "./pages/Layout";
 import Home from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
-import { About } from "./pages/About";
+import About from "./pages/About";
 import Profile from "./pages/Profile";
 import RouteDetail from "./pages/RouteDetail";
 import RouteRegistration from "./pages/RouteRegistration.jsx";
