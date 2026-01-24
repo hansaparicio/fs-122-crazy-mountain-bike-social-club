@@ -30,3 +30,13 @@ export function getRoutes() {
 export function clearRoutes() {
   localStorage.removeItem(STORAGE_KEY);
 }
+
+/**
+ * Borra una ruta por id
+ */
+export function deleteRoute(routeId) {
+  const prev = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  const next = prev.filter(route => route.id !== routeId);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  return next;
+}
