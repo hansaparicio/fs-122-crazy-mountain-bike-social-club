@@ -4,11 +4,7 @@
 
 .home {
   min-height: 100vh;
-  background: linear-gradient(
-    180deg,
-    var(--bg-main) 0%,
-    #081521 100%
-  );
+  background: #020617;
   display: flex;
   justify-content: center;
   padding-bottom: 90px;

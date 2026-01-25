@@ -1,219 +1,185 @@
-:root{
-  --tr-bg: #07131b;
-  --tr-bg2: #050c12;
-  --tr-text: rgba(255,255,255,0.88);
-  --tr-muted: rgba(255,255,255,0.60);
-  --tr-border: rgba(255,255,255,0.10);
-  --tr-accent: #ffb400;
-  --tr-accent2: #ff8a00;
+.about {
+  background: linear-gradient(#020617, #020617);
+  color: white;
 }
 
-.tr-about{
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(180deg, var(--tr-bg) 0%, var(--tr-bg2) 100%);
-  color: var(--tr-text);
+/* ================= HERO ================= */
+
+.about-hero {
+  position: relative;
+  height: 85vh;
+  overflow: hidden;
 }
 
-/* navbarr*/
-.tr-about__topbar{
-  border-bottom: 1px solid var(--tr-border);
-  background: rgba(0,0,0,0.10);
+.about-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.tr-about__wrap{
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(2, 6, 23, 0.95),
+    rgba(2, 6, 23, 0.6),
+    rgba(2, 6, 23, 0.2)
+  );
+}
+
+.about-hero-content {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.about-logo {
+  display: block;
+  font-weight: 800;
+  color: #facc15;
+  margin-bottom: 0.5rem;
+}
+
+.about-hero h1 {
+  color: #fb923c;
+  letter-spacing: 0.35em;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+/* ================= MISSION ================= */
+
+.about-mission {
+  max-width: 900px;
+  margin: -3rem auto 6rem;
+  padding: 0 2rem;
+}
+
+.section-tag {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #fb923c;
+}
+
+.about-mission blockquote {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: #facc15;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.about-mission p {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 720px;
+}
+
+/* ================= TEAM ================= */
+
+.about-team {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 18px;
+  padding: 0 2rem 6rem;
 }
 
-.tr-about__topbarInner{
-  height: 62px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 10px 0;
-}
-
-.tr-about__brand{
-  display: flex;
-  align-items: center;
-}
-
-.tr-about__brandLogo{
-  height: 100px;   
-  width: auto;
-  display: block;
-}
-
-
-.tr-about__nav{
-  display: flex;
-  gap: 26px;
-  align-items: center;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.tr-about__navItem{
-  color: var(--tr-text);
-  opacity: 0.9;
-  padding: 10px 2px;
-  border-bottom: 2px solid transparent;
-}
-
-.tr-about__navItem--active{
-  border-bottom-color: var(--tr-accent);
-}
-
-/*LINKS */
-.tr-about__auth{
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.tr-about__authLink{
-  color: var(--tr-text);
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: .2px;
-  text-transform: uppercase;
-}
-
-.tr-about__authLink--accent{
-  color: var(--tr-accent);
-}
-
-/* contenido */
-.tr-about__content{
+.team-grid {
   display: grid;
-  grid-template-columns: 1fr 260px;
-  gap: 60px;
-  padding: 56px 0 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 3rem 0;
 }
 
-.tr-about__h2{
-  margin: 0 0 12px;
-  font-weight: 900;
-  letter-spacing: .2px;
+.team-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #020617;
 }
 
-.tr-about__h3{
-  margin: 22px 0 10px;
-  font-weight: 900;
-  letter-spacing: .2px;
+.team-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.tr-about__p{
-  margin: 0 0 12px;
-  color: var(--tr-text);
-  opacity: 0.92;
-  line-height: 1.55;
+.team-info {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
 }
 
-.tr-about__muted{
-  color: var(--tr-muted);
+.team-info h3 {
+  font-size: 1rem;
 }
 
-.tr-about__list{
-  margin: 0 0 12px;
-  padding-left: 18px;
-  color: var(--tr-muted);
-}
-
-.tr-about__list li{
-  margin: 7px 0;
-}
-
-
-.tr-about__rightBlock{
-  margin-bottom: 440px;
-}
-
-.tr-about__sectionTitle{
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .8px;
+.team-info span {
+  font-size: 0.65rem;
+  color: #facc15;
   text-transform: uppercase;
-  margin-bottom: 14px;
-  opacity: 0.85;
 }
 
-/* redes sociales*/
-.tr-about__social2{
+/* ================= CTA ================= */
+
+.contact-btn {
+  width: 100%;
+  background: #facc15;
+  color: #020617;
+  border: none;
+  padding: 1.2rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.contact-btn span {
+  margin-left: 0.5rem;
+}
+
+
+/* ================= TEAM ICONS ================= */
+
+.team-icons {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--tr-text);
-  opacity: 0.9;
-  padding: 8px 0;
-  font-size: 14px;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
 }
 
-.tr-about__social2:hover{
-  color: var(--tr-accent);
-  opacity: 1;
-}
-
-.tr-about__icon{
-  width: 18px;
-  height: 18px;
-  display: inline-flex;
+.team-icons i {
+  width: 26px;
+  height: 26px;
+  display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #facc15;
+  font-size: 0.7rem;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.tr-about__icon img{
-  width: 18px;
-  height: 18px;
-  display: block;
-  filter: brightness(0) invert(1); 
-}
-
-
-
-/* footer */
-.tr-about__bottom{
-  border-top: 1px solid var(--tr-border);
-  margin-top: auto;
-}
-
-.tr-about__bottomInner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 72px;
+.team-icons i:hover {
+  transform: translateY(-2px);
+  background: rgba(250, 204, 21, 0.2);
 }
 
 
-.tr-about__bottomLogo{
-  height: 100px;
-  width: auto;
-  display: block;
+/* ================= FOOTER ================= */
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    height: 70vh;
+  }
 }
-
-
-.tr-about__legal{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 13px;
-  color: var(--tr-muted);
-  white-space: nowrap;
-}
-
-.tr-about__legal > *::after{
-  content: "·";
-  margin-left: 12px;
-  opacity: 0.5;
-}
-
-.tr-about__legal > *:last-child::after{
-  content: "";
-}
-
