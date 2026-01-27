@@ -19,15 +19,59 @@ export default function SavedRouteDetail() {
     return all.find((r) => String(r.id) === String(routeId));
   }, [routeId]);
 
-  useEffect(() => {
+   useEffect(() => {
     const map = mapRef.current;
     if (!map || !route?.geojson) return;
 
-    const ensure = () => {
-      if (!map.getSource(SOURCE_ID)) {
-        map.addSource(SOURCE_ID, { type: "geojson", data: route.geojson });
+    // --- helpers de normalización ---
+    const parseGeoJSON = (value) => {
+      if (!value) return null;
+
+      if (typeof value === "string") {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+
+      return value;
+    };
+
+    const normalizeFeature = (geo) => {
+      // Geometry → Feature
+      if (geo?.type === "LineString") {
+        return {
+          type: "Feature",
+          properties: {},
+          geometry: geo,
+        };
+      }
+
+      // FeatureCollection → primera Feature
+      if (geo?.type === "FeatureCollection" && geo.features?.[0]) {
+        return geo.features[0];
+      }
+
+      return geo;
+    };
+
+    const rawGeo = parseGeoJSON(route.geojson);
+    const feature = normalizeFeature(rawGeo);
+
+    const coords = feature?.geometry?.coordinates;
+    if (!Array.isArray(coords) || coords.length < 2) return;
+
+    const drawRoute = () => {
+      const sourceExists = map.getSource(SOURCE_ID);
+
+      if (!sourceExists) {
+        map.addSource(SOURCE_ID, {
+          type: "geojson",
+          data: feature,
+        });
       } else {
-        map.getSource(SOURCE_ID).setData(route.geojson);
+        sourceExists.setData(feature);
       }
 
       if (!map.getLayer(LAYER_ID)) {
@@ -35,27 +79,38 @@ export default function SavedRouteDetail() {
           id: LAYER_ID,
           type: "line",
           source: SOURCE_ID,
-          layout: { "line-join": "round", "line-cap": "round" },
-          paint: { "line-width": 5, "line-opacity": 0.9, "line-color": "#3B82F6" },
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-width": 5,
+            "line-opacity": 0.9,
+            "line-color": "#3B82F6",
+          },
         });
       }
 
-      const coords = route?.geojson?.geometry?.coordinates || [];
-      if (coords.length >= 2) {
-        const b = boundsFromCoords(coords);
-        map.fitBounds(b, { padding: 60, duration: 800 });
-      }
+      map.fitBounds(boundsFromCoords(coords), {
+        padding: 60,
+        duration: 800,
+      });
     };
 
-    if (map.isStyleLoaded()) ensure();
-    else map.once("load", ensure);
+    if (map.isStyleLoaded()) {
+      drawRoute();
+    } else {
+      map.once("load", drawRoute);
+    }
   }, [route]);
 
   if (!route) {
     return (
       <div style={{ padding: 16 }}>
         <h2>Route not found</h2>
-        <button onClick={() => navigate("/saved-routes")}>Back</button>
+        <button type="button" onClick={() => navigate("/saved-routes")}>
+          Back
+        </button>
       </div>
     );
   }

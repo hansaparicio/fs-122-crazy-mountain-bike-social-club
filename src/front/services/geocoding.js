@@ -32,3 +32,27 @@ export async function geocodePlace(query, opts = {}) {
     feature: f,
   };
 }
+
+
+export async function reverseGeocodeLocality(lng, lat, opts = {}) {
+  
+  const token = import.meta.env.VITE_MAPBOX_TOKEN;
+  if (!token) throw new Error("Falta VITE_MAPBOX_TOKEN en .env");
+
+  const { language = "es", country = "es" } = opts;
+
+  const url = new URL(`${BASE_URL}/${lng},${lat}.json`);
+  url.searchParams.set("access_token", token);
+  url.searchParams.set("language", language);
+  if (country) url.searchParams.set("country", country);
+  url.searchParams.set("types", "place,locality");
+
+  const res = await fetch(url.toString());
+  if (!res.ok) throw new Error(`Reverse geocoding API: ${res.status}`);
+  const data = await res.json();
+
+  const f = data?.features?.[0];
+  if (!f) return null;
+
+  return f.text || f.place_name?.split(",")?.[0] || null;
+}
