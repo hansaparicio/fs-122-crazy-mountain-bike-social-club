@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import { Loader } from "../components/Loader/Loader";
 import { useLoader } from "../context/loaderContext";
 import "../styles/footer.css";
+import AiChatDialog from "../components/AiChatDialog";
 
 export const Layout = () => {
   const { isLoading } = useLoader();
@@ -12,6 +13,7 @@ export const Layout = () => {
       {isLoading && <Loader />}
 
       <div className={`app-root ${isLoading ? "is-loading" : ""}`}>
+        <AiChatDialog floating />
         <Outlet />
         <Footer />
       </div>
