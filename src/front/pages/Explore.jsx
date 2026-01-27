@@ -7,7 +7,7 @@ import RouteRegistrationBottomNav from "../components/RouteRegistration/RouteReg
 
 import useRoutePlanner from "../hooks/useRoutePlanner";
 import { saveRoute } from "../services/routesStorage";
-import { geocodePlace } from "../services/geocoding";
+import { geocodePlace, reverseGeocodeLocality } from "../services/geocoding";
 
 import "../styles/routeRegistration.css";
 
@@ -43,21 +43,59 @@ export default function Explore() {
     };
   }, [detachMapClick]);
 
-  const savePlannedRoute = () => {
+  const savePlannedRoute = async () => {
     if (!canSave) return;
 
+    const coords = summary?.geojsonLine?.geometry?.coordinates;
+    if (!Array.isArray(coords) || coords.length < 2) return;
+
+    const makeId = () => {
+      try {
+        return crypto.randomUUID();
+      } catch {
+        return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      }
+    };
+    
+    const [sLng, sLat] = coords[0];
+    const [eLng, eLat] = coords[coords.length - 1];
+
+    const [starLoc, endLoc] = await Promise.all([
+      reverseGeocodeLocality(sLng, sLat, { language: "es", country: "es" }),
+      reverseGeocodeLocality(eLng, eLat, { language: "es", country: "es" }),
+    ]);
+
+    const autoName = 
+      starLoc && endLoc ? `${starLoc} → ${endLoc}` : 
+      starLoc ? `Desde ${starLoc}` :
+      endLoc ? `Hasta ${endLoc}` :
+      "Ruta planificada";
+
+      
+    const geojsonFeature = {
+      type: "Feature",
+      geometry: summary.geojsonLine.geometry,
+      properties: {
+        name: autoName,
+        distanceKm: summary.distanceKm,
+        durationMin: summary.durationMin,
+        terrain: activeFilter,
+      },
+    };
+
     const plannedRoute = {
-      id: crypto.randomUUID(),
-      type: "planned",
-      name: routeName,
+      id: makeId(),
+      type: "route",
+      name: autoName,
       terrain: activeFilter,
       distance_km: summary.distanceKm,
       duration_min: summary.durationMin,
       gain_m: null,
-      geojson: summary.geojsonLine,
+      geojsonFeature,
       created_at: new Date().toISOString(),
+
     };
-    
+
     saveRoute(plannedRoute);
 
     setSavedMsg("Ruta guardada");

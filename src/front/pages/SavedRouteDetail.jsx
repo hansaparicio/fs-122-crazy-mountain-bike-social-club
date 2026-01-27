@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import MapView from "../components/Map/MapView";
@@ -12,7 +12,9 @@ const LAYER_ID = "saved-route-line";
 export default function SavedRouteDetail() {
   const { routeId } = useParams();
   const navigate = useNavigate();
+
   const mapRef = useRef(null);
+  const [mapReady, setMapReady] = useState(false);
 
   const route = useMemo(() => {
     const all = getRoutes();
@@ -21,15 +23,51 @@ export default function SavedRouteDetail() {
 
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !route?.geojson) return;
+    if (!mapReady || !map || !route) return;
 
-    const ensure = () => {
-      if (!map.getSource(SOURCE_ID)) {
-        map.addSource(SOURCE_ID, { type: "geojson", data: route.geojson });
-      } else {
-        map.getSource(SOURCE_ID).setData(route.geojson);
+    const parseIfString = (value) => {
+      if (!value) return null;
+      if (typeof value === "string") {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+      return value;
+    };
+
+    const toFeature = (geo) => {
+      if (!geo) return null;
+
+      if (geo.type === "LineString") {
+        return { type: "Feature", properties: {}, geometry: geo };
       }
 
+      if (geo.type === "FeatureCollection" && Array.isArray(geo.features) && geo.features[0]) {
+        return geo.features[0];
+      }
+
+      return geo; // si ya es Feature, perfecto
+    };
+
+    // 👇 soporta ambos formatos (geojson o geojsonFeature)
+    const stored = parseIfString(route.geojson ?? route.geojsonFeature);
+    const feature = toFeature(stored);
+
+    const coords = feature?.geometry?.coordinates;
+    if (!Array.isArray(coords) || coords.length < 2) return;
+
+    const draw = () => {
+      // Source
+      const existingSource = map.getSource(SOURCE_ID);
+      if (!existingSource) {
+        map.addSource(SOURCE_ID, { type: "geojson", data: feature });
+      } else {
+        existingSource.setData(feature);
+      }
+
+      // Layer
       if (!map.getLayer(LAYER_ID)) {
         map.addLayer({
           id: LAYER_ID,
@@ -40,22 +78,29 @@ export default function SavedRouteDetail() {
         });
       }
 
-      const coords = route?.geojson?.geometry?.coordinates || [];
-      if (coords.length >= 2) {
-        const b = boundsFromCoords(coords);
-        map.fitBounds(b, { padding: 60, duration: 800 });
-      }
+      map.fitBounds(boundsFromCoords(coords), { padding: 60, duration: 800 });
     };
 
-    if (map.isStyleLoaded()) ensure();
-    else map.once("load", ensure);
-  }, [route]);
+    // Si el estilo se carga/re-carga, vuelve a dibujar
+    const onStyleLoad = () => draw();
+
+    if (map.isStyleLoaded()) draw();
+    else map.once("load", draw);
+
+    map.on("style.load", onStyleLoad);
+
+    return () => {
+      map.off("style.load", onStyleLoad);
+    };
+  }, [route, mapReady]);
 
   if (!route) {
     return (
       <div style={{ padding: 16 }}>
         <h2>Route not found</h2>
-        <button onClick={() => navigate("/saved-routes")}>Back</button>
+        <button type="button" onClick={() => navigate("/saved-routes")}>
+          Back
+        </button>
       </div>
     );
   }
@@ -68,7 +113,9 @@ export default function SavedRouteDetail() {
         zoom={12}
         onMapLoad={(map) => {
           mapRef.current = map;
-          setTimeout(() => map.resize(), 0);
+          setMapReady(true);
+          requestAnimationFrame(() => map.resize());
+          setTimeout(() => map.resize(), 150);
         }}
       />
 
