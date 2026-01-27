@@ -13,8 +13,8 @@ export const Layout = () => {
       {isLoading && <Loader />}
 
       <div className={`app-root ${isLoading ? "is-loading" : ""}`}>
-        <AiChatDialog floating />
         <Outlet />
+        <AiChatDialog floating />
         <Footer />
       </div>
     </>

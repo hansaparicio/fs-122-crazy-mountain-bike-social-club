@@ -6,7 +6,8 @@ from api.models import db, User, Bike, BikePart, BikeModel
 from api.utils import generate_sitemap, APIException, is_valid_email
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-
+from api.services.ollama_client import ollama_chat
+from api.services.catalog import load_catalog, rank_bikes
 
 api = Blueprint('api', __name__)
 
@@ -348,3 +349,70 @@ def update_bike(bike_id):
     
     db.session.commit()
     return jsonify(bike.serialize()), 200
+
+
+@api.route("/ai/chat", methods=["POST"])
+# @jwt_required()  
+def ai_chat():
+    try:
+        body = request.get_json(silent=True) or {}
+        messages = body.get("messages") or []
+        context = body.get("context") or {}
+
+        if not isinstance(messages, list) or len(messages) == 0:
+            return jsonify({"error": "messages debe ser una lista no vacía"}), 400
+        if not isinstance(context, dict):
+            context = {}
+
+        # 1) Rankear bicis del catálogo
+        catalog = load_catalog()
+        recommendations = rank_bikes(context, catalog, limit=3)
+
+        # 2) Construir prompt para Ollama
+        system = {
+            "role": "system",
+            "content": (
+                "Eres GASTACOBRE, asistente de compra de bicis.\n"
+                "Reglas:\n"
+                "- Responde SIEMPRE en español.\n"
+                "- Sé breve, claro y práctico.\n"
+                "- NO inventes modelos. SOLO puedes hablar de las recomendaciones del catálogo que te pasan.\n"
+                "- Si falta modalidad o presupuesto, pregunta 1-2 cosas.\n"
+                "- Cuando haya recomendaciones, explica por qué encajan y sugiere 1-2 preguntas siguientes.\n"
+            ),
+        }
+
+        
+        catalog_context = {
+            "role": "system",
+            "content": (
+                "RECOMMENDATIONS (del catálogo, no inventar):\n"
+                + "\n".join(
+                    [
+                        f"- {r['name']} | type={r.get('type')} | price={r.get('price_eur')}€ | url={r.get('url')}"
+                        for r in recommendations
+                    ]
+                )
+            ),
+        }
+
+        prompt = [system, catalog_context] + [
+            {"role": m.get("role"), "content": m.get("content")}
+            for m in messages
+            if m.get("role") in ("user", "assistant") and isinstance(m.get("content"), str)
+        ]
+
+        # 3) Llamar a Ollama
+        result = ollama_chat(prompt, temperature=0.3)
+
+        return jsonify(
+            {
+                "assistant_message": result.get("assistant_message", "").strip(),
+                "recommendations": recommendations,  
+                "next_questions": [],
+                "context": context,
+            }
+        ), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
