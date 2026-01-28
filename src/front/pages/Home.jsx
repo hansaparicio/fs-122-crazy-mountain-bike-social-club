@@ -15,10 +15,10 @@ import { useFetchWithLoader } from "../hooks/useFetchWithLoader";
 const Home = () => {
   const navigate = useNavigate();
 
-  
+
   const fetchWithLoader = useFetchWithLoader();
 
- 
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -26,7 +26,7 @@ const Home = () => {
     }
   }, [navigate]);
 
- 
+
   useEffect(() => {
     const loadData = async () => {
       await fetchWithLoader(
@@ -46,15 +46,8 @@ const Home = () => {
     <div className="home">
       <div className="home-content">
         <header className="home-header">
-          <div
-            className="home-left clickable"
-            onClick={() => navigate("/home")}
-          >
-            <span className="home-icon">🏠</span>
-            <span className="home-title">Inicio</span>
-          </div>
-
-          <div className="home-actions">
+          {/* IZQUIERDA → AVATAR */}
+          <div className="home-user">
             <div
               className="user-avatar clickable"
               onClick={() => navigate("/profile")}
@@ -62,20 +55,34 @@ const Home = () => {
               tabIndex={0}
             >
               <img
-                src="https://i.pravatar.cc/40"
+                src="https://ca.slack-edge.com/T0BFXMWMV-U08U5P1CMT8-66334e023a99-512"
                 alt="Perfil de usuario"
               />
             </div>
+
+            <div className="home-greeting">
+              <span className="home-hello">Hola Fernando 👋</span>
+              <span className="home-subtitle">¿Listo para pedalear hoy?</span>
+            </div>
+          </div>
+
+          {/* DERECHA → HOME + LOGOUT */}
+          <div className="home-actions">
+            <i
+              className="fa-solid fa-house nav-home-icon active"
+              onClick={() => navigate("/home")}
+            />
 
             <button
               className="logout-btn"
               onClick={handleLogout}
               aria-label="Cerrar sesión"
             >
-              ⏻
+              <i className="fa-solid fa-power-off logout-icon"></i>
             </button>
           </div>
         </header>
+
 
         <main className="home-content">
           <WeeklyKms />
@@ -87,8 +94,7 @@ const Home = () => {
             showTitle={true}
             showActionButton={false}
           />
-          <StartRouteButton />
-        </main>
+         </main>
       </div>
     </div>
   );

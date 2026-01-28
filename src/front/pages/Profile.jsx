@@ -6,7 +6,7 @@ import Garage from "../components/Profile/Garage";
 const Profile = () => {
   return (
     <div className="profile-wrapper">
-      <div className="ui-panel">
+      <div className="profile-header-wrapper">
         <ProfileHeader />
       </div>
 

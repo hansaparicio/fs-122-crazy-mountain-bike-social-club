@@ -1,4 +1,4 @@
-export default function TeamCard({ name, role, img }) {
+export default function TeamCard({ name, role, img, linkedin, twitter, instagram }) {
   return (
     <article className="team-card">
       <img src={img} alt={name} />
@@ -7,11 +7,24 @@ export default function TeamCard({ name, role, img }) {
         <h3>{name}</h3>
         <span>{role}</span>
 
-        {/* ICONOS */}
         <div className="team-icons">
-          <i className="fa-brands fa-linkedin-in"></i>
-          <i className="fa-brands fa-x-twitter"></i>
-          <i className="fa-brands fa-instagram"></i>
+          {linkedin && (
+            <a href={linkedin} target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-linkedin-in"></i>
+            </a>
+          )}
+
+ {/*}        {twitter && (
+            <a href={twitter} target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-x-twitter"></i>
+            </a>
+          )}
+
+          {instagram && (
+            <a href={instagram} target="_blank" rel="noopener noreferrer">
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+          )}             */}
         </div>
       </div>
     </article>
