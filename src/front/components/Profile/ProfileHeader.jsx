@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import SettingsDropdown from "./SettingsDropdown";
 import "../../styles/header.css";
 
 const ProfileHeader = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.clear();
@@ -14,12 +15,12 @@ const ProfileHeader = () => {
 
   return (
     <header className="profile-header">
-     
       <div className="profile-left">
         <img
           src="https://ca.slack-edge.com/T0BFXMWMV-U08U5P1CMT8-66334e023a99-512"
           alt="avatar"
-          className="profile-avatar"
+          className={`profile-avatar ${location.pathname === "/profile" ? "active" : ""
+            }`}
         />
 
         <div className="profile-info">
@@ -28,22 +29,17 @@ const ProfileHeader = () => {
         </div>
       </div>
 
-      
       <div className="profile-actions">
-        <div
-          className="profile-home clickable"
+        {/* HOME ICON */}
+        <i
+          className={"fa-solid fa-house nav-home-icon"}
           onClick={() => navigate("/home")}
-        >
-          <span className="home-icon">🏠</span>
-          <span className="home-title">Inicio</span>
-        </div>
+        />
 
+        {/* LOGOUT */}
         <div className="settings-wrapper">
-          <button
-            className="settings-btn"
-            onClick={() => setOpen(!open)}
-          >
-            ⏻
+          <button className="logout-btn" onClick={() => setOpen(!open)}>
+            <i className="fa-solid fa-power-off logout-icon"></i>
           </button>
 
           {open && <SettingsDropdown onLogout={handleLogout} />}

@@ -9,7 +9,7 @@ export const Login = () => {
         <main className="login-page">
             <LoginHeader />
             <LoginForm />
-            <SocialLogin />
+            {/* <SocialLogin /> */}
             <LoginFooter />
         </main>
     );

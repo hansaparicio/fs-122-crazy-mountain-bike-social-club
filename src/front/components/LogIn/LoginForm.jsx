@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -42,26 +42,34 @@ const LoginForm = () => {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+    <form className="signup-form" onSubmit={handleSubmit}>
       <label>Correo electrónico</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
+      <div className="input-wrapper">
+        <input
+          type="email"
+          placeholder="ciclista@trail.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          disabled={loading}
+        />
+      </div>
 
       <label>Contraseña</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+      <div className="input-wrapper">
+        <input
+          type="password"
+          placeholder="••••••••"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          disabled={loading}
+        />
+      </div>
 
-      {error && <p className="error-text">{error}</p>}
+      {error && <div className="error-message">{error}</div>}
 
-      <button type="submit" disabled={loading}>
+      <button type="submit" className="signup-button" disabled={loading}>
         {loading ? "Entrando..." : "INICIAR SESIÓN"}
       </button>
     </form>
