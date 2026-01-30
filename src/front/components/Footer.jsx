@@ -2,9 +2,6 @@ export default function Footer() {
   return (
     <footer className="footer">
       
-           {/* Divider */}
-      <div className="footer-divider" />
-
       {/* Social */}
       <div className="footer-social">
         <i className="fa-solid fa-globe"></i>
