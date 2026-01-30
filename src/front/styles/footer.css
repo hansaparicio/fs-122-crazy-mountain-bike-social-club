@@ -39,13 +39,6 @@
   font-size: 1rem;
 }
 
-/* Divider */
-.footer-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 2rem 0;
-}
-
 /* Social */
 .footer-social {
   display: flex;
