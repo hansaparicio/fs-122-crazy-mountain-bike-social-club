@@ -44,7 +44,7 @@
   outline: none;
   background: transparent;
   font-size: 14px;
-  color:#f3c247
+  color: #f3c247;
 }
 
 .rr-search-icon {
@@ -97,7 +97,6 @@
   pointer-events: none;
 }
 
-
 .rr-card {
   pointer-events: auto;
   width: min(520px, calc(100% - 24px));
@@ -105,7 +104,7 @@
   border-radius: 18px;
   padding: 14px 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-  color: #ffffff; ;
+  color: #ffffff;
 }
 
 .rr-card-title {
@@ -177,7 +176,7 @@
   background: transparent;
   font-weight: 800;
   font-size: 12px;
-   opacity: 1;
+  opacity: 1;
   cursor: pointer;
 }
 
@@ -220,8 +219,6 @@
   bottom: 120px !important;
 }
 
-
-
 /* Botones compactos solo en RouteRegistration */
 
 .rr-card .ui-btn {
@@ -248,4 +245,16 @@
   display: flex;
   justify-content: center;
   margin: 8px 0 12px;
+}
+
+.rr-toast {
+  margin-bottom: 10px;
+  background: #16a34a;
+  color: white;
+  font-weight: 800;
+  padding: 10px 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  z-index: 20;
 }

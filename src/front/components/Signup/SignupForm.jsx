@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const SignupForm = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -14,19 +17,40 @@ const SignupForm = () => {
     setLoading(true);
 
     try {
-      const resp = await fetch(`${backendUrl}/api/signup`, {
+      const signupResp = await fetch(`${backendUrl}/api/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await resp.json();
+      const signupData = await signupResp.json();
 
-      if (!resp.ok) {
-        setError(data.msg || "Error en registro");
+      if (!signupResp.ok) {
+        setError(signupData.msg || "Error en registro");
         return;
       }
-      window.location.href = "/login";
+
+      const loginResp = await fetch(`${backendUrl}/api/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const loginData = await loginResp.json();
+
+      if (!loginResp.ok) {
+        setError("Usuario creado, pero fallo al iniciar sesión");
+        return;
+      }
+
+      localStorage.setItem("user", JSON.stringify(loginData.user));
+
+      if (loginData.token) {
+        localStorage.setItem("token", loginData.token);
+      }
+
+      navigate("/home");
+
     } catch (err) {
       setError("Error de conexión");
     } finally {
@@ -37,6 +61,7 @@ const SignupForm = () => {
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       <label>Correo electrónico</label>
+
       <div className="input-wrapper">
         <input
           type="email"
@@ -44,12 +69,12 @@ const SignupForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          autoComplete="email"
           disabled={loading}
         />
       </div>
 
       <label>Contraseña</label>
+
       <div className="input-wrapper">
         <input
           type="password"
@@ -57,7 +82,6 @@ const SignupForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          autoComplete="new-password"
           disabled={loading}
         />
       </div>
