@@ -12,17 +12,19 @@ export const POI_LYR = {
   bike: "poi-bike-lyr",
 };
 
+const KEYS = Object.keys(POI_SRC);
+
 const colorByKey = (key) => {
-  if (key === "fuel") return "#F59E0B";
-  if (key === "food") return "#10B981";
-  if (key === "hospital") return "#EF4444";
-  return "#38128f";
+  if (key === "fuel") return "orange";
+  if (key === "food") return "green";
+  if (key === "hospital") return "red";
+  return "blue";
 };
 
+const emptyFC = () => ({ type: "FeatureCollection", features: [] });
+
 const toPointFC = (items = []) => {
-  if (!Array.isArray(items) || items.length === 0) {
-    return { type: "FeatureCollection", features: [] };
-  }
+  if (!Array.isArray(items) || items.length === 0) return emptyFC();
 
   return {
     type: "FeatureCollection",
@@ -37,24 +39,25 @@ const toPointFC = (items = []) => {
   };
 };
 
-export const upsertNearbyServicesLayers = (map, services) => {
+export const upsertNearbyServicesLayers = (
+  map,
+  services,
+  enabledKeys = KEYS
+) => {
   if (!map || !services) return;
+  if (!map.isStyleLoaded?.()) return;
 
-  ["fuel", "food", "hospital", "bike"].forEach((key) => {
+  KEYS.forEach((key) => {
     const srcId = POI_SRC[key];
     const layerId = POI_LYR[key];
+    const isEnabled = enabledKeys.includes(key);
 
-    if (!srcId || !layerId) return;
+    const data = isEnabled ? toPointFC(services[key]) : emptyFC();
 
-    const fc = toPointFC(services[key]);
-
-    const source = map.getSource(srcId);
-    if (!source) {
-      map.addSource(srcId, { type: "geojson", data: fc });
-    }
-
-    if (source) {
-      source.setData(fc);
+    if (!map.getSource(srcId)) {
+      map.addSource(srcId, { type: "geojson", data });
+    } else {
+      map.getSource(srcId).setData(data);
     }
 
     if (map.getLayer(layerId)) return;
@@ -77,16 +80,11 @@ export const upsertNearbyServicesLayers = (map, services) => {
 export const removeNearbyServicesLayers = (map) => {
   if (!map) return;
 
-  ["fuel", "food", "hospital", "bike"].forEach((key) => {
+  KEYS.forEach((key) => {
     const layerId = POI_LYR[key];
     const srcId = POI_SRC[key];
 
-    if (map.getLayer(layerId)) {
-      map.removeLayer(layerId);
-    }
-
-    if (map.getSource(srcId)) {
-      map.removeSource(srcId);
-    }
+    if (map.getLayer(layerId)) map.removeLayer(layerId);
+    if (map.getSource(srcId)) map.removeSource(srcId);
   });
 };
