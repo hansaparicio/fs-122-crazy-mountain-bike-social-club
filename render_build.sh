@@ -9,7 +9,7 @@ pip install --upgrade pip
 pip install pipenv
 
 pipenv install --dev --deploy --ignore-pipfile
-# pipenv run flask db stamp head
-# pipenv run init
+psql "$DATABASE_URL" -c "DROP SCHEMA public CASCADE;"
+psql "$DATABASE_URL" -c "CREATE SCHEMA public;"
 pipenv run migrate
 pipenv run upgrade
